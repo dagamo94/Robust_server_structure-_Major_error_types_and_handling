@@ -45,16 +45,12 @@ let lastNoteId = notes.reduce((maxId, note) => Math.max(maxId, note.id), 0);
 
 app.post("/notes", bodyHasText, (req, res) => {
   const { data: { text } = {} } = req.body;
-  if (text) {
-    const newNote = {
-      id: ++lastNoteId, // Increment last id then assign as the current ID
-      text,
-    };
-    notes.push(newNote);
-    res.status(201).json({ data: newNote });
-  } else {
-    res.sendStatus(400);
-  }
+  const newNote = {
+    id: ++lastNoteId, // Increment last id then assign as the current ID
+    text,
+  };
+  notes.push(newNote);
+  res.status(201).json({ data: newNote });
 });
 
 // Not found handler
